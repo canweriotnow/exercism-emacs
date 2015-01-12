@@ -84,6 +84,9 @@
       (shell-command-to-string (concat cmd " fetch")))))
 
 
+(defun exercism-path-p
+    (string-match-p "/exercism/"
+                    (or (buffer-file-name) default-directory)))
 
 
 (provide 'exercism)
