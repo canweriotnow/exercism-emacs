@@ -1,3 +1,5 @@
+![badge-license](https://img.shields.io/badge/license-GPL%203-brightgreen.svg)
+
 #exercism.el
 
 An Emacs package for [exercism.io](http://exercism.io).
