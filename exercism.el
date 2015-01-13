@@ -42,7 +42,7 @@
 
 ;;; Utility functions
 (defun exercism-get-config (file-path)
-  "Parses exercism json config into a plist."
+  "Parse exercism json config from FILE-PATH into a plist."
   (let ((json-object-type 'plist))
     (json-read-file file-path)))
 
@@ -68,7 +68,7 @@
 
 
 (defmacro namespace (ns-name symbols-to-namespace &rest body)
-  "Local alias symbols that expand to namespace"
+  "Local alias symbols that expand to namespace."
   `(let) body)
 
 ;(defconst exercism-base-url "http://exercism.io"
@@ -93,7 +93,8 @@
                    (plist-get *exercism-config* :xapi)
                    "/v2/exercises"
                    "?key="
-                   (plist-get *exercism-config* :apiKey))))
+                   (plist-get *exercism-config* :apiKey)))
+  "The endpoint for fetching new exercises.")
 
 ;; A lot more to this; see:
 ;; https://github.com/exercism/cli/blob/master/cmd/submit.go
@@ -102,7 +103,8 @@
 (defvar *exercism-submit-endpoint*
   (url-encode-url (concat
                    (plist-get *exercism-config* :api)
-                   "api/v1/user/assignments" )))
+                   "api/v1/user/assignments" ))
+  "The endpoint for submitting assignments.")
 
 (defun execute-command (exercism-arg &optional arg1)
   "Execute the exercism CLI with the supplied EXERCISM-ARG.
