@@ -144,7 +144,8 @@
   (let ((cmd *exercism-cmd*))
     (if (zerop (length cmd))
         (user-error "exercism not found")
-      (with-output-to-temp-buffer (shell-command-to-string (concat cmd " tracks"))))))
+      (with-output-to-temp-buffer "Exercism Tracks"
+        (princ (shell-command-to-string (concat cmd " tracks")))))))
 
 
 
