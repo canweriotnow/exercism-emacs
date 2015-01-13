@@ -15,15 +15,15 @@ compile: $(OBJECTS)
 
 .PHONY: clean
 clean:
-rm -rf $(OBJECTS)
+	rm -rf $(OBJECTS)
 
 .PHONY: test
 test: compile
-$(CASK) exec ert-runner $(TESTARGS)
+	$(CASK) exec ert-runner $(TESTARGS)
 
 $(PKGDIR):
-$(CASK) install
-touch $(PKGDIR)
+	$(CASK) install
+	touch $(PKGDIR)
 
 %.elc: %.el $(PKGDIR)
-$(CASK) exec $(EMACS) -Q --batch -f batch-byte-compile $<
+	$(CASK) exec $(EMACS) -Q --batch -f batch-byte-compile $<
