@@ -1,7 +1,7 @@
 ;;; exercism.el - interact with exercism.io from within emacs
 
 ;; Author: Jason Lewis
-;; URL:
+;; URL: https://github.com/canweriotnow/exercism-emacs
 ;; Created 2015.01.12
 ;; Version: 0.0.1
 ;; Dependencies: '(url json)
