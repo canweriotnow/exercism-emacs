@@ -86,7 +86,22 @@
 (defvar *exercism-config*
   (get-exercism-config exercism-config-file))
 
-;(dired (plist-get *exercism-config* :dir))
+(defvar *exercism-fetch-endpoint*
+  (url-encode-url (concat
+                   (plist-get *exercism-config* :xapi)
+                   "/v2/exercises"
+                   "?key="
+                   (plist-get *exercism-config* :apiKey))))
+
+;; A lot more to this; see:
+;; https://github.com/exercism/cli/blob/master/cmd/submit.go
+;; https://github.com/exercism/cli/blob/master/api/api.go
+
+(defvar *exercism-submit-endpoint*
+  (url-encode-url (concat
+                   (plist-get *exercism-config* :api)
+                   "api/v1/user/assignments" )))
+
 
 
 
@@ -106,21 +121,19 @@
   (let ((exercise buffer-file-name)
           (cmd (shell-command-to-string "which exercism")))
       (if (zerop (length cmd))
-          "exercism not found"
-        (shell-command-to-string (concat "exercism submit " exercise)))))
+          (user-error "exercism not found")
+        (message "Result: %s" (shell-command-to-string (concat "exercism submit " exercise))))))
 
 ;;;###autoload
 (defun exercism-fetch ()
   (interactive)
   (let ((cmd (shell-command-to-string "which exercism")))
     (if (zerop (length cmd))
-        "exercism not found"
-      (shell-command-to-string (concat cmd " fetch")))))
+        (user-error "exercism not found")
+      (message "Result: %s" (shell-command-to-string (concat cmd " fetch"))))))
 
 
-(defun exercism-path-p
-    (string-match-p "/exercism/"
-                    (or (buffer-file-name) default-directory)))
+
 
 ;;; Utility functions
 
