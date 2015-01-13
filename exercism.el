@@ -84,7 +84,7 @@
 (defvar *exercism-current-exercise*)
 
 (defvar *exercism-config*
-  (get-exercism-config "~/.exercism.json"))
+  (get-exercism-config exercism-config-file))
 
 ;(dired (plist-get *exercism-config* :dir))
 
