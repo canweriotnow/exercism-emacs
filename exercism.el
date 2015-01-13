@@ -133,6 +133,14 @@ Optionally pass ARG1, for a result."
     (message "Result: %s" (execute-command " submit " exercise))))
 
 ;;;###autoload
+(defun exercism-unsubmit ()
+  "Unsubmit the most recently submitted iteration."
+  (interactive)
+  (let ((exercise buffer-file-name))
+    (message "Result: %s" (execute-command " unsubmit " exercise))))
+
+
+;;;###autoload
 (defun exercism-fetch ()
   "Fetch the next set of exercises from exercism.io."
   (interactive)

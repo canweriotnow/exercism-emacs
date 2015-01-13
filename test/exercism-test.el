@@ -6,9 +6,6 @@
 
 (load-file "exercism.el")
 
-(custom-set-variables
- '(exercism-config-file "fixtures/exercism.json")
- )
 
 (ert-deftest is-true ()
   (should (eq t t)))
