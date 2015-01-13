@@ -7,7 +7,7 @@ PKGDIR := $(shell EMACS=$(EMACS) $(CASK) package-directory)
 # Export the used EMACS to recipe environments
 export EMACS
 
-SRCS = epl.el
+SRCS = exercism.el
 OBJECTS = $(SRCS:.el=.elc)
 
 .PHONY: compile
