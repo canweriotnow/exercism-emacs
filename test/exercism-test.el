@@ -9,6 +9,8 @@
 (ert-deftest is-true ()
   (should (eq t t)))
 
+(ert-deftest is-nil ()
+  (should (eq '() nil)))
 
 
 (provide 'exercism-test)
