@@ -7,7 +7,7 @@
 (load-file "exercism.el")
 
 (ert-deftest is-true ()
-  (eq t nil))
+  (should (eq t t)))
 
 
 
