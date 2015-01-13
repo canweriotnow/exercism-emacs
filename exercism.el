@@ -74,7 +74,7 @@
 
 
 (defmacro namespace (ns-name symbols-to-namespace &rest body)
-  "Local alias symbols that expand to namespace"
+  "Local alias symbolds that expand to namespace"
   `(let) body)
 
 ;(defconst exercism-base-url "http://exercism.io"
