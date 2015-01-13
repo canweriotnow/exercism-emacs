@@ -4,6 +4,7 @@
 ;; URL:
 ;; Created 2015.01.12
 ;; Version: 0.0.1
+;; Dependencies: '(url json)
 
 ;; This file is not part of GNU Emacs
 
