@@ -42,7 +42,7 @@
 ;;; Utility functions
 (defun exercism-get-config (file-path)
   "Parses exercism json config into a plist."
-  (let ((json-object-type 'plist)) 
+  (let ((json-object-type 'plist))
     (json-read-file file-path)))
 
 
@@ -67,7 +67,7 @@
 
 
 (defmacro namespace (ns-name symbols-to-namespace &rest body)
-  "Local alias symbolds that expand to namespace"
+  "Local alias symbols that expand to namespace"
   `(let) body)
 
 ;(defconst exercism-base-url "http://exercism.io"
