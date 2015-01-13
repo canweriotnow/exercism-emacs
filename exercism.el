@@ -102,7 +102,11 @@
                    (plist-get *exercism-config* :api)
                    "api/v1/user/assignments" )))
 
-
+(defun execute-command (exercism-arg &optional arg1)
+  (let ((cmd *exercism-cmd*))
+    (if (zerop (length cmd))
+        (user-error "Exercism CLI not found.")
+      (shell-command-to-string (concat cmd exercism-arg arg1)))))
 
 
 ;;;;; Interactive User Funs
@@ -118,28 +122,19 @@
 ;;;###autoload
 (defun exercism-submit ()
   (interactive)
-  (let ((exercise buffer-file-name)
-        (cmd *exercism-cmd*))
-      (if (zerop (length cmd))
-          (user-error "exercism not found")
-        (message "Result: %s" (shell-command-to-string (concat cmd " submit " exercise))))))
+  (let ((exercise buffer-file-name))
+    (message "Result: %s" (execute-command " submit " exercise))))
 
 ;;;###autoload
 (defun exercism-fetch ()
   (interactive)
-  (let ((cmd *exercism-cmd*))
-    (if (zerop (length cmd))
-        (user-error "exercism not found")
-      (message "Result: %s" (shell-command-to-string (concat cmd " fetch"))))))
+  (message "Result: %s" (execute-command " fetch")))
 
 ;;;###autoload ()
 (defun exercism-tracks () ; This doesn't work yet; opens temp buffer but output is in action bar
   (interactive)
-  (let ((cmd *exercism-cmd*))
-    (if (zerop (length cmd))
-        (user-error "exercism not found")
-      (with-output-to-temp-buffer "Exercism Tracks"
-        (princ (shell-command-to-string (concat cmd " tracks")))))))
+  (with-output-to-temp-buffer "Exercism Tracks"
+    (princ (execute-command " tracks"))))
 
 
 
