@@ -39,6 +39,19 @@
 (require 'url)
 (require 'json)
 
+;;; Utility functions
+(defun get-string-from-file (file-path)
+  "Reads a file into a string."
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (buffer-string)))
+
+(defun get-exercism-config (file-path)
+  "Parses exercism json config into a plist."
+  (let ((json-object-type 'plist)
+        (json-string (get-string-from-file file-path)))
+    (json-read-from-string json-string)))
+
 ;;;###autoload
 (progn
   (defgroup exercism nil
@@ -48,23 +61,44 @@
   (defcustom exercism-api-key ""
     "API key found on the /account page of exercism"
     :group 'exercism
-    :type 'string))
+    :type 'string)
+
+  (defcustom exercism-config-file "~/.exercism.json"
+    "Custom location for exercism config file"
+    :group 'exercism
+    :type 'string)
+  )
+
+
 
 (defmacro namespace (ns-name symbols-to-namespace &rest body)
   "Local alias symbols that expand to namespace"
   `(let) body)
 
-(defconst exercism-base-url "http://exercism.io"
-  "endpoint to submit solutions to, and to get personalized data")
+;(defconst exercism-base-url "http://exercism.io"
+;  "endpoint to submit solutions to, and to get personalized data")
 
-(defconst exercism-fetch-url "http://x.exercism.io"
-  "endpoint to fetch problems from")
+;(defconst exercism-fetch-url "http://x.exercism.io"
+;  "endpoint to fetch problems from")
 
 (defvar *exercism-current-exercise*)
+
+(defvar *exercism-config*
+  (get-exercism-config "~/.exercism.json"))
+
+;(dired (plist-get *exercism-config* :dir))
 
 
 
 ;;;;; Interactive User Funs
+
+;;;###autoload
+(defun exercism ()
+  "Open the user's exercism directory in dired-mode"
+  (interactive)
+  (let ((exercism-dir (plist-get *exercism-config* :dir)))
+    (dired exercism-dir)))
+
 
 ;;;###autoload
 (defun exercism-submit ()
@@ -88,6 +122,15 @@
     (string-match-p "/exercism/"
                     (or (buffer-file-name) default-directory)))
 
+;;; Utility functions
+
+
+
+
+
+
+
+;;;
 
 (provide 'exercism)
 
