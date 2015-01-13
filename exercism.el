@@ -52,6 +52,8 @@
         (json-string (get-string-from-file file-path)))
     (json-read-from-string json-string)))
 
+
+
 ;;;###autoload
 (progn
   (defgroup exercism nil
@@ -82,6 +84,10 @@
 ;  "endpoint to fetch problems from")
 
 (defvar *exercism-current-exercise*)
+
+(defvar *exercism-cmd*
+  (replace-regexp-in-string "\n$" ""
+                            (shell-command-to-string "which exercism")))
 
 (defvar *exercism-config*
   (get-exercism-config exercism-config-file))
@@ -119,32 +125,28 @@
 (defun exercism-submit ()
   (interactive)
   (let ((exercise buffer-file-name)
-          (cmd (shell-command-to-string "which exercism")))
+        (cmd *exercism-cmd*))
       (if (zerop (length cmd))
           (user-error "exercism not found")
-        (message "Result: %s" (shell-command-to-string (concat "exercism submit " exercise))))))
+        (message "Result: %s" (shell-command-to-string (concat cmd " submit " exercise))))))
 
 ;;;###autoload
 (defun exercism-fetch ()
   (interactive)
-  (let ((cmd (shell-command-to-string "which exercism")))
+  (let ((cmd *exercism-cmd*))
     (if (zerop (length cmd))
         (user-error "exercism not found")
       (message "Result: %s" (shell-command-to-string (concat cmd " fetch"))))))
 
+;;;###autoload ()
+(defun exercism-tracks () ; This doesn't work yet; opens temp buffer but output is in action bar
+  (interactive)
+  (let ((cmd *exercism-cmd*))
+    (if (zerop (length cmd))
+        (user-error "exercism not found")
+      (with-output-to-temp-buffer (shell-command-to-string (concat cmd " tracks"))))))
 
 
-
-;;; Utility functions
-
-
-
-
-
-
-
-;;;
 
 (provide 'exercism)
-
 ;;; exercism.el ends here
