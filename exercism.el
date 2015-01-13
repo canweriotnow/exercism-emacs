@@ -85,7 +85,8 @@
   "Find the exercism CLI path and chomp the trailing newline.")
 
 (defvar *exercism-config*
-  (exercism-get-config exercism-config-file))
+  (exercism-get-config exercism-config-file)
+  "The exercism configuration file data.")
 
 (defvar *exercism-fetch-endpoint*
   (url-encode-url (concat
@@ -116,7 +117,7 @@ Optionally pass ARG1, for a result."
 
 ;;;###autoload
 (defun exercism ()
-  "Open the user's exercism directory in dired-mode"
+  "Open the user's exercism directory in 'dired-mode'."
   (interactive)
   (let ((exercism-dir (plist-get *exercism-config* :dir)))
     (dired exercism-dir)))
@@ -124,17 +125,20 @@ Optionally pass ARG1, for a result."
 
 ;;;###autoload
 (defun exercism-submit ()
+  "Submit the exercism exercise in the current buffer."
   (interactive)
   (let ((exercise buffer-file-name))
     (message "Result: %s" (execute-command " submit " exercise))))
 
 ;;;###autoload
 (defun exercism-fetch ()
+  "Fetch the next set of exercises from exercism.io."
   (interactive)
   (message "Result: %s" (execute-command " fetch")))
 
 ;;;###autoload ()
-(defun exercism-tracks () ; This doesn't work yet; opens temp buffer but output is in action bar
+(defun exercism-tracks ()
+  "Retrieve the listing of actie and inactive exercism tracks into a temp buffer."
   (interactive)
   (with-output-to-temp-buffer "Exercism Tracks"
     (princ (execute-command " tracks"))))
