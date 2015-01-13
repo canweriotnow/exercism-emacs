@@ -4,7 +4,7 @@
 ;; Author: Jason Lewis <jason@decomplecting.org>
 ;; URL: https://github.com/canweriotnow/exercism-emacs
 ;; Created 2015.01.12
-;; Version: 0.0.1
+;; Version: 0.0.2
 ;; Dependencies: '(url json)
 
 ;; This file is not part of GNU Emacs
