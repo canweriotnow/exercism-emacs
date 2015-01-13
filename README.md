@@ -1,5 +1,5 @@
 [![badge-license](https://img.shields.io/badge/license-GPL%203-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
-![badge-version](https://img.shields.io/badge/version-0.0.1-blue.svg)
+![badge-version](https://img.shields.io/badge/version-0.0.2-blue.svg)
 [![Build Status](https://travis-ci.org/canweriotnow/exercism-emacs.svg?branch=master)](https://travis-ci.org/canweriotnow/exercism-emacs)
 
 #exercism.el
