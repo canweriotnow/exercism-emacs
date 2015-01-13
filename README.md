@@ -18,6 +18,10 @@ From an exercism exercise buffer,
 
 will submit the current exercise.
 
+To unsubmit the most recent iteration:
+
+`M-x exercism-unsubmit`
+
 From the context of your exercism directory tree,
 
 `M-x exercism-fetch` should fetch any new exercises if they are available.
