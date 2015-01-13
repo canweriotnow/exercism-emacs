@@ -2,7 +2,11 @@
 
 An Emacs package for [exercism.io](http://exercism.io).
 
-Currently provides two commands, which sort of work some of the time:
+To jump to your exercism directory in dired mode, simply type
+
+`M-x exercism`
+
+Currently provides two commands via the exercism binary, which sort of work some of the time:
 
 From an exercism exercise buffer,
 
