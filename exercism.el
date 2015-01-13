@@ -35,7 +35,6 @@
 
 ;;; Code:
 
-(require 'cl)
 (require 'url)
 (require 'json)
 
