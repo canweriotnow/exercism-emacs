@@ -18,6 +18,10 @@ From the context of your exercism directory tree,
 
 `M-x exercism-fetch` should fetch any new exercises if they are available.
 
+New:
+
+`M-x exercism-tracks` will display all language tracks (active and inactive) in a temp buffer
+
 ## Installation
 
 Put `exercism.el` in one of your personal module autoload directories.
