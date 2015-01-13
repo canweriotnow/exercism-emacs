@@ -40,17 +40,10 @@
 (require 'json)
 
 ;;; Utility functions
-(defun get-string-from-file (file-path)
-  "Reads a file into a string."
-  (with-temp-buffer
-    (insert-file-contents file-path)
-    (buffer-string)))
-
-(defun get-exercism-config (file-path)
+(defun exercism-get-config (file-path)
   "Parses exercism json config into a plist."
-  (let ((json-object-type 'plist)
-        (json-string (get-string-from-file file-path)))
-    (json-read-from-string json-string)))
+  (let ((json-object-type 'plist)) 
+    (json-read-file file-path)))
 
 ;;;###autoload
 (progn
@@ -84,7 +77,7 @@
 (defvar *exercism-current-exercise*)
 
 (defvar *exercism-config*
-  (get-exercism-config exercism-config-file))
+  (exercism-get-config exercism-config-file))
 
 (defvar *exercism-fetch-endpoint*
   (url-encode-url (concat
