@@ -81,7 +81,8 @@
 
 (defvar *exercism-cmd*
   (replace-regexp-in-string "\n$" ""
-                            (shell-command-to-string "which exercism")))
+                            (shell-command-to-string "which exercism"))
+  "Find the exercism CLI path and chomp the trailing newline.")
 
 (defvar *exercism-config*
   (exercism-get-config exercism-config-file))
@@ -103,6 +104,8 @@
                    "api/v1/user/assignments" )))
 
 (defun execute-command (exercism-arg &optional arg1)
+  "Execute the exercism CLI with the supplied EXERCISM-ARG.
+Optionally pass ARG1, for a result."
   (let ((cmd *exercism-cmd*))
     (if (zerop (length cmd))
         (user-error "Exercism CLI not found.")
