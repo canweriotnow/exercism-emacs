@@ -1,6 +1,7 @@
-;;; exercism.el - interact with exercism.io from within emacs
+;;; exercism.el --- interact with exercism.io from within emacs
 
-;; Author: Jason Lewis
+;; Filename: exercism.el
+;; Author: Jason Lewis <jason@decomplecting.org>
 ;; URL: https://github.com/canweriotnow/exercism-emacs
 ;; Created 2015.01.12
 ;; Version: 0.0.1
