@@ -71,11 +71,6 @@
   "Local alias symbols that expand to namespace."
   `(let) body)
 
-;(defconst exercism-base-url "http://exercism.io"
-;  "endpoint to submit solutions to, and to get personalized data")
-
-;(defconst exercism-fetch-url "http://x.exercism.io"
-;  "endpoint to fetch problems from")
 
 (defvar *exercism-current-exercise*)
 
