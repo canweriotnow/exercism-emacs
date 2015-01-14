@@ -106,13 +106,14 @@
                    "api/v1/user/assignments" ))
   "The endpoint for submitting assignments.")
 
-(defun execute-command (exercism-arg &optional arg1)
-  "Execute the exercism CLI with the supplied EXERCISM-ARG.
-Optionally pass ARG1, for a result."
+(defun execute-command (command &optional arg)
+  "Execute the exercism CLI with the supplied COMMAND.
+Optionally pass ARG, for a result."
   (let ((cmd *exercism-cmd*))
     (if (zerop (length cmd))
         (user-error "Exercism CLI not found.")
-      (shell-command-to-string (concat cmd exercism-arg arg1)))))
+      (shell-command-to-string
+       (mapconcat #'identity (list cmd command arg) " ")))))
 
 
 ;;;;; Interactive User Funs
@@ -130,28 +131,28 @@ Optionally pass ARG1, for a result."
   "Submit the exercism exercise in the current buffer."
   (interactive)
   (let ((exercise buffer-file-name))
-    (message "Result: %s" (execute-command " submit " exercise))))
+    (message "Result: %s" (execute-command "submit" exercise))))
 
 ;;;###autoload
 (defun exercism-unsubmit ()
   "Unsubmit the most recently submitted iteration."
   (interactive)
   (let ((exercise buffer-file-name))
-    (message "Result: %s" (execute-command " unsubmit " exercise))))
+    (message "Result: %s" (execute-command "unsubmit" exercise))))
 
 
 ;;;###autoload
 (defun exercism-fetch ()
   "Fetch the next set of exercises from exercism.io."
   (interactive)
-  (message "Result: %s" (execute-command " fetch")))
+  (message "Result: %s" (execute-command "fetch")))
 
 ;;;###autoload ()
 (defun exercism-tracks ()
   "Retrieve the listing of actie and inactive exercism tracks into a temp buffer."
   (interactive)
   (with-output-to-temp-buffer "Exercism Tracks"
-    (princ (execute-command " tracks"))))
+    (princ (execute-command "tracks"))))
 
 
 
