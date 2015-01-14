@@ -10,6 +10,8 @@ export EMACS
 SRCS = exercism.el
 OBJECTS = $(SRCS:.el=.elc)
 
+
+
 .PHONY: compile
 compile: $(OBJECTS)
 
@@ -18,7 +20,7 @@ clean:
 	rm -rf $(OBJECTS)
 
 .PHONY: test
-test: compile
+test:	compile
 	$(CASK) exec ert-runner $(TESTARGS)
 
 $(PKGDIR):

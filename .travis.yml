@@ -10,6 +10,8 @@ before_install:
   # Install and bootstrap cask
   - curl -fsSkL https://raw.github.com/cask/cask/master/go | python
   - export PATH="${HOME}/.cask/bin:$PATH"
+  # Setup fixtures
+  - cp test/fixtures/exercism.json ~/.exercism.json
 install:
   - cask install
 script:
