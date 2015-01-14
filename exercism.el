@@ -50,13 +50,16 @@
   (let ((json-object-type 'plist))
     (json-read-file file-path)))
 
-(defun exercism-api-request (url data parser &optional headers &rest args)
-  "Send request to exercism API URL with DATA and PARSER.
+(defun exercism-api-request (type url data &optional headers &rest args)
+  "Send request of type TYPE to exercism API URL with DATA.
 Optionally add HEADERS and other ARGS."
   (request
    url
+   :type type
    :data data
-   :parser parser
+   :parser (lambda ()
+             (let ((json-object-type 'plist))
+               (json-read)))
    :headers headers
    :success
    (function* (lambda (&key data &allow-other-keys)
