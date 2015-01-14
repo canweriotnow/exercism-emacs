@@ -2,9 +2,10 @@
 
 ;; Filename: exercism.el
 ;; Author: Jason Lewis <jason@decomplecting.org>
-;; URL: https://github.com/canweriotnow/exercism-emacs
-;; Created 2015.01.12
-;; Version: 0.0.2
+;; Homepage: https://github.com/canweriotnow/exercism-emacs
+;; Created: 2015.01.12
+;; Package-Version: 0.0.2
+;; Keywords: exercism
 ;; Dependencies: '(url json)
 
 ;; This file is not part of GNU Emacs
@@ -26,7 +27,7 @@
 
 ;;; Commentary:
 
-;; Exercism mode provides functions for interacting with exercises from
+;; Exercism provides functions for interacting with exercises from
 ;; exercism.io, submitting completed exercises, and fetching new ones.
 ;; It aims to eventually integrate with exercism unit tests and (possibly?)
 ;; auto-submit work when all tests pass.
