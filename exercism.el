@@ -2,11 +2,13 @@
 
 ;; Filename: exercism.el
 ;; Author: Jason Lewis <jason@decomplecting.org>
+;; Maintainer: Jason Lewis <jason@decomplecting.org>
 ;; Homepage: https://github.com/canweriotnow/exercism-emacs
 ;; Created: 2015.01.12
 ;; Package-Version: 0.0.2
 ;; Keywords: exercism
 ;; Dependencies: '(url json)
+;; Package-Requires: ((request "0.2.0"))
 
 ;; This file is not part of GNU Emacs
 
@@ -40,6 +42,7 @@
 
 (require 'url)
 (require 'json)
+(require 'request)
 
 ;;; Utility functions
 (defun exercism-get-config (file-path)
@@ -47,7 +50,27 @@
   (let ((json-object-type 'plist))
     (json-read-file file-path)))
 
-
+(defun exercism-api-request (url data parser &optional headers &rest args)
+  "Send request to exercism API URL with DATA and PARSER.
+Optionally add HEADERS and other ARGS."
+  (request
+   url
+   :data data
+   :parser parser
+   :headers headers
+   :success
+   (function* (lambda (&key data &allow-other-keys)
+                (when data
+                  (with-current-buffer (get-buffer-create "*exercism-data*")
+                    (erase-buffer)
+                    (insert data)
+                    (pop-to-buffer (current-buffer))))))
+   :error
+   (function* (lambda (&key error-thrown &allow-other-keys&rest _)
+                (message "Got error: %S" error-thrown)))
+   :complete (lambda (&rest _) (message "Finished!"))
+   :status-code '((400 . (lambda (&rest _) (message "Got 400.")))
+                  (401 . (lambda (&rest _) (message "Got 401."))))))
 
 ;;;###autoload
 (progn
@@ -69,7 +92,7 @@
 
 
 (defmacro namespace (ns-name symbols-to-namespace &rest body)
-  "Local alias symbols that expand to namespace."
+  "Local alias to namespace NS-NAME symbols SYMBOLS-TO-NAMESPACE on BODY."
   `(let) body)
 
 
@@ -99,7 +122,7 @@
 (defvar *exercism-submit-endpoint*
   (url-encode-url (concat
                    (plist-get *exercism-config* :api)
-                   "api/v1/user/assignments" ))
+                   "/api/v1/user/assignments" ))
   "The endpoint for submitting assignments.")
 
 (defun execute-command (command &optional arg)
@@ -121,9 +144,20 @@ Optionally pass ARG, for a result."
   (let ((exercism-dir (plist-get *exercism-config* :dir)))
     (dired exercism-dir)))
 
-
 ;;;###autoload
 (defun exercism-submit ()
+  "Submit the exercism exercise in the current buffer."
+  (interactive)
+  (let ((data (json-encode '(:key exercism-api-key
+                                  :solution (buffer-substring-no-properties
+                                             (point-min) (point-max))))))
+    ))
+
+
+;;;;; HOPEFULLY DEPRECATED SOON - CLI-WRAPPERS
+
+;;;###autoload
+(defun exercism-submit-cli ()
   "Submit the exercism exercise in the current buffer."
   (interactive)
   (let ((exercise buffer-file-name))
