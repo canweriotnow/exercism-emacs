@@ -50,6 +50,19 @@
   (let ((json-object-type 'plist))
     (json-read-file file-path)))
 
+(defun exercism-verify-config ()
+  "Verify that exercism is properly configured; if not, configure it."
+  (if (file-readable-p exercism-config-file)
+      (setq *exercism-config* (exercism-get-config exercism-config-file))
+    (exercism-configure)))
+
+;; DO NOT USE - I have no idea what I'm doing.
+(defun exercism-configure ()
+  "Configure exercism if it hasn't been configured via the API."
+  (interactive
+   (let ((api-key (read-string "Exercism API Key: " nil)))
+     (list (region-beginning) (region-end) api-key))))
+
 (defun exercism-api-request (type url data &optional headers &rest args)
   "Send request of type TYPE to exercism API URL with DATA.
 Optionally add HEADERS and other ARGS."
@@ -133,7 +146,7 @@ Optionally add HEADERS and other ARGS."
 Optionally pass ARG, for a result."
   (let ((cmd *exercism-cmd*))
     (if (zerop (length cmd))
-        (user-error "Exercism CLI not found.")
+        (user-error "Exercism CLI not found")
       (shell-command-to-string
        (mapconcat #'identity (list cmd command arg) " ")))))
 
@@ -148,7 +161,7 @@ Optionally pass ARG, for a result."
     (dired exercism-dir)))
 
 ;;;###autoload
-(defun exercism-submit ()
+(defun exercism-submit-fn ()
   "Submit the exercism exercise in the current buffer."
   (interactive)
   (let ((data (json-encode '(:key exercism-api-key
@@ -160,7 +173,7 @@ Optionally pass ARG, for a result."
 ;;;;; HOPEFULLY DEPRECATED SOON - CLI-WRAPPERS
 
 ;;;###autoload
-(defun exercism-submit-cli ()
+(defun exercism-submit ()
   "Submit the exercism exercise in the current buffer."
   (interactive)
   (let ((exercise buffer-file-name))
