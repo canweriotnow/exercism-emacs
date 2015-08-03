@@ -202,11 +202,26 @@ Optionally pass ARG, for a result."
 
 ;;;###autoload ()
 (defun exercism-tracks ()
-  "Retrieve the listing of actie and inactive exercism tracks into a temp buffer."
+  "Retrieve the listing of active and inactive exercism tracks into a temp buffer."
   (interactive)
   (with-output-to-temp-buffer "Exercism Tracks"
     (princ (execute-command "tracks"))))
 
+;;;###autoload ()
+(defun exercism-list ()
+  "Retrieve the list of exercises in given track/language into a temp buffer."
+  (interactive)
+  (let ((language (read-from-minibuffer "Language: ")))
+    (with-output-to-temp-buffer (format "exercism-list-%s" language)
+      (princ (execute-command (format "list %s" language))))))
+
+;;;###autoload ()
+(defun exercism-open ()
+  "Retrieve the list of exercises in given track/language into a temp buffer."
+  (interactive)
+  (let ((language (read-from-minibuffer "Language: "))
+        (problem (read-from-minibuffer "Problem: ")))
+    (execute-command (format "open %s %s" language problem))))
 
 
 (provide 'exercism)
