@@ -193,6 +193,13 @@ Optionally pass ARG, for a result."
   (interactive)
   (message "Result: %s" (execute-command "fetch")))
 
+;;;###autoload
+(defun exercism-fetch-language ()
+  "Fetch the next set of exercises from exercism.io."
+  (interactive)
+  (let ((language (read-from-minibuffer "Language: ")))
+    (message "Result: %s" (execute-command (format "fetch %s" language)))))
+
 ;;;###autoload ()
 (defun exercism-tracks ()
   "Retrieve the listing of actie and inactive exercism tracks into a temp buffer."
