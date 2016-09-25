@@ -1,6 +1,6 @@
-[[http://www.gnu.org/licenses/gpl-3.0.txt][[[https://img.shields.io/badge/license-GPL%203-brightgreen.svg]]]]
+[[http://www.gnu.org/licenses/gpl-3.0.txt][[https://img.shields.io/badge/license-GPL%203-brightgreen.svg]]]
 [[https://img.shields.io/badge/version-0.0.2-blue.svg]]
-[[https://travis-ci.org/canweriotnow/exercism-emacs][[[https://travis-ci.org/canweriotnow/exercism-emacs.svg?branch=master]]]]
+[[https://travis-ci.org/canweriotnow/exercism-emacs][[https://travis-ci.org/canweriotnow/exercism-emacs.svg?branch=master]]]
 
 * exercism.el
 
