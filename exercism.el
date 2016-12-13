@@ -176,8 +176,13 @@ Optionally pass ARG, for a result."
 (defun exercism-submit ()
   "Submit the exercism exercise in the current buffer."
   (interactive)
-  (let ((exercise buffer-file-name))
-    (message "Result: %s" (execute-command "submit" exercise))))
+  (block nil
+    (when (and (buffer-modified-p)
+               (not (y-or-n-p "Buffer modified since last save. Submit anyway?")))
+      (message "Exercism submission aborted.")
+      (return))
+    (let ((exercise buffer-file-name))
+      (message "Result: %s" (execute-command "submit" exercise)))))
 
 ;;;###autoload
 (defun exercism-unsubmit ()
