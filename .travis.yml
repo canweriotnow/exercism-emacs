@@ -1,10 +1,9 @@
 language: generic
 sudo: false
 before_install:
-  - curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh
+  # Install/setup Cask and EVM
+  - curl -fsSkL https://gist.github.com/canweriotnow/26d266c8238b9905b16cc58974df9586/raw > x.sh && source ./x.sh
   - evm install $EVM_EMACS --use --skip
-  # Install and bootstrap cask
-  - curl -fsSkL https://raw.github.com/cask/cask/master/go | python
   - export PATH="${HOME}/.cask/bin:$PATH"
   - cask --debug
   # Setup fixtures
