@@ -92,19 +92,57 @@ Optionally add HEADERS and other ARGS."
 (progn
   (defgroup exercism nil
     "Exercism.io"
-    :group 'external)
+    :group 'external
+    :prefix "exercism-"
+    :link '(url-link :tag "Homepage" "https://github.com/canweriotnow/exercism-emacs"))
 
   (defcustom exercism-api-key ""
     "API key found on the /account page of exercism"
     :group 'exercism
-    :type 'string)
+    :type 'string
+    :tag "Exercism API key")
+
+  (defcustom exercism-api-url "http://exercism.io"
+    "The Exercism API host URL"
+    :group 'exercism
+    :type 'string
+    :tag "Exercism API host URL")
+
+  (defcustom exercism-x-api-url "http://x.exercism.io"
+    "Exercism \"x API\" URL"
+    :group 'exercism
+    :type 'string
+    :tag "Exercism \"x API\" host URL")
+
+  (defcustom exercism-dir (format "%s/exercism" (getenv "HOME"))
+    "Exercism working directory - defaults to `$HOME/exercism'"
+    :group 'exercism
+    :type 'string
+    :tag "Exercism working directory")
+
+  (defcustom exercism-mode-hook nil
+    "Hook to run when switching to exercism-mode"
+    :group 'exercism
+    :type 'hook
+    :options '(projectile-mode
+               ))
+
+  (defcustom exercism-auto-enable t
+    "Enable exercism-mode whenever we're in our exercism dir"
+    :group 'exercism
+    :type 'boolean
+    :tag "Auto-enable exercism mode in exercism dir")
 
   (defcustom exercism-config-file "~/.exercism.json"
     "Custom location for exercism config file"
     :group 'exercism
     :type 'string)
-  )
+)
 
+;;; If `exercism-auto-enable' is true, enable `exercism-mode' when
+;;; current file's path matches `exercism-dir'
+(when exercism-auto-enable
+  (add-to-list 'auto-mode-alist '(exercism-dir . exercism-mode)))
 
 
 (defmacro namespace (ns-name symbols-to-namespace &rest body)
@@ -149,6 +187,16 @@ Optionally pass ARG, for a result."
         (user-error "Exercism CLI not found")
       (shell-command-to-string
        (mapconcat #'identity (list cmd command arg) " ")))))
+
+;;;;; Define our mode
+
+;;;###autoload
+(define-minor-mode exercism-mode
+  "Toggle Exercism mode.
+Write more docstring."
+  :init-value nil
+  :lighter " exercism"
+  :keymap  )
 
 
 ;;;;; Interactive User Funs
