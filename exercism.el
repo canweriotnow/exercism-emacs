@@ -8,7 +8,7 @@
 ;; Package-Version: 0.0.2
 ;; Keywords: exercism
 ;; Dependencies: '(url json)
-;; Package-Requires: ((request "0.2.0"))
+;; Package-Requires: ((request "0.2.0") (dash "2.12.0") (ht "2.1"))
 
 ;; This file is not part of GNU Emacs
 
