@@ -178,7 +178,7 @@ Optionally pass ARG, for a result."
   (interactive)
   (block nil
     (when (and (buffer-modified-p)
-               (not (y-or-n-p "Buffer modified since last save. Submit anyway?")))
+               (not (y-or-n-p "Buffer modified since last save.  Submit anyway? ")))
       (message "Exercism submission aborted.")
       (return))
     (let ((exercise buffer-file-name))
